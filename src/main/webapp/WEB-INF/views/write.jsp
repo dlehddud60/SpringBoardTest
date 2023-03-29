@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <div class="row mt-4">
+        <div class="row">
             <div class="col-md-10 offset-md-1">
                 <div class="form-floating mt-4">
                     <input name="title" type="text" class="form-control" placeholder="제목" required>

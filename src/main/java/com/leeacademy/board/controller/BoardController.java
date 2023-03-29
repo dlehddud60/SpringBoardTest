@@ -2,7 +2,13 @@ package com.leeacademy.board.controller;
 
 import com.leeacademy.board.entity.Board;
 import com.leeacademy.board.repository.BoardRepository;
+import com.leeacademy.board.vo.BoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +21,23 @@ import java.util.Map;
 @Controller
 public class BoardController {
 
-	@Autowired
 	private BoardRepository boardRepository;
 
-	@GetMapping("/")
-	public String list(Model model) {
-//		model.addAttribute("list", boardRepository.findAll());
-		model.addAttribute("list",boardRepository.findAllByOrderByNoDesc());
+	public BoardController(BoardRepository boardRepository) {
+		this.boardRepository = boardRepository;
+	}
+
+	@RequestMapping("/")
+	public String list(Model model,
+					   @ModelAttribute BoardVO boardVO,
+					   @PageableDefault(page = 0, size = 10)
+					   @SortDefault(sort = "no",direction = Sort.Direction.DESC)
+					   Pageable pageable
+					   ) {
+		Page<Board> data = boardRepository.findAll(boardVO.specification(), pageable);
+		model.addAttribute("data",data);
+//		model.addAttribute("list", boardRepository.findAll(pageable));
+//		model.addAttribute("list",boardRepository.findAllByOrderByNoDesc());
 		return "list";
 	}
 

@@ -14,6 +14,94 @@
                 </p>
             </div>
         </div>
+<%--    복합 검색을 위한 아코디언 검색창--%>
+    <div class="row mt-4">
+        <div class="col-md-10 offset-md-1">
+            <div class="card border-dark">
+                <div class="card-header">
+                    <a class="btn" data-bs-toggle="collapse" href="#collapse-body">검색 도구 상자</a>
+                </div>
+<%--                검색인지 아목록인지에 따라 옵션 펼침 여부를 다르게 처리--%>
+                <c:choose>
+                <c:when test="${boardVO.search}">
+                <div class="collapse show" id="collapse-body">
+                </c:when>
+                <c:otherwise>
+                <div class="collapse" id="collapse-body">
+                </c:otherwise>
+                </c:choose>
+
+                    <div class="card-body">
+<%--                        검색 form--%>
+                        <form method="post" class="search-form">
+
+                            <%--번호검색--%>
+                            <div class="row"><div class="col">
+                                <div class="form-floating">
+
+                                    <input name="no" class="form-control" type="text" placeholder="번호" value="${boardVO.no}">
+                                    <label class="form-label text-secondary">번호</label>
+                                </div>
+                            </div></div>
+
+                            <%--작성자 검색--%>
+                            <div class="row mt-4"><div class="col">
+                                <div class="form-floating">
+                                    <input name="writer" class="form-control" type="text" placeholder="작성자" value="${boardVO.writer}">
+                                    <label class="form-label text-secondary">작성자</label>
+                                </div>
+                            </div></div>
+
+                            <%--제목 검색--%>
+                            <div class="row mt-4"><div class="col">
+                                <div class="form-floating">
+                                    <input name="title" class="form-control" type="text" placeholder="제목" value="${boardVO.title}">
+                                    <label class="form-label text-secondary">제목에 포함된 글자</label>
+                                </div>
+                            </div></div>
+
+                            <%--내용 검색--%>
+                            <div class="row mt-4"><div class="col">
+
+                                <div class="form-floating">
+                                    <input name="content" class="form-control" type="text" placeholder="내용" value="${boardVO.content}">
+                                    <label class="form-label text-secondary">내용에 포함된 글자</label>
+                                </div>
+
+                            </div></div>
+
+                                <%--기간 검색--%>
+                            <div class="row mt-4">
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input name="begin" class="form-control" type="text" placeholder="시작일" value="${boardVO.begin}">
+                                        <label class="form-label text-secondary">검색 시작일</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <input name="end" class="form-control" type="text" placeholder="시작일" value="${boardVO.end}">
+                                        <label class="form-label text-secondary">검색 종료일</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col text-end">
+                                    <input type="reset" class="btn btn-warning btn-lg" value="초기화">
+                                    <a href="./" class="btn btn-secondary btn-lg">목록</a>
+                                    <button type="submit" class="btn btn-success btn-lg">검색</button>
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <%--    게시글 개수 및 글쓰기 버튼--%>
     <div class="row mt-4">
         <div class="col-md-10 offset-md-1">
@@ -42,7 +130,7 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                    <c:forEach var="board" items="${list}">
+                    <c:forEach var="board" items="${data.content}">
                         <tr>
                             <th>${board.no}</th>
                            <td align="left"><a href="detail?no=${board.no}">
