@@ -27,7 +27,10 @@ public class Board {
 	
 	@Column @Lob
 	private String content;
-	
+
+	@Column(length = 20)
+	private String password;
+
 	@Column
 	private int readcount;
 	
