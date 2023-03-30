@@ -44,6 +44,8 @@
 <%--    버튼 영역--%>
     <div class="row mt-4">
         <div class="col-md-10 offset-md-1 text-end">
+            <hr>
+            <%--글쓰기와 다르게 답글쓰기는 계산을 위해 원번글의 번호를 전달해야 함--%>
             <a href="write" class="btn btn-primary">글쓰기</a>
             <a href="write" class="btn btn-success">답글쓰기</a>
 

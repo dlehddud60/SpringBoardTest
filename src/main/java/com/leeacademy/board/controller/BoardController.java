@@ -2,6 +2,7 @@ package com.leeacademy.board.controller;
 
 import com.leeacademy.board.entity.Board;
 import com.leeacademy.board.repository.BoardRepository;
+import com.leeacademy.board.vo.BoardPaginationVo;
 import com.leeacademy.board.vo.BoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,6 +39,7 @@ public class BoardController {
 		model.addAttribute("data",data);
 //		model.addAttribute("list", boardRepository.findAll(pageable));
 //		model.addAttribute("list",boardRepository.findAllByOrderByNoDesc());
+		model.addAttribute("pagination",new BoardPaginationVo(data));
 		return "list";
 	}
 

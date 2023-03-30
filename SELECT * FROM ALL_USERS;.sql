@@ -1,0 +1,7 @@
+-- SELECT * FROM ALL_USERS;
+--
+-- CREATE USER boardTest IDENTIFIED by Ehddud124578;
+--
+-- GRANT CONNECT, RESOURCE to boardTest;
+--
+-- commit;
