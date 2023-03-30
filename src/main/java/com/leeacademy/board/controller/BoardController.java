@@ -2,6 +2,7 @@ package com.leeacademy.board.controller;
 
 import com.leeacademy.board.entity.Board;
 import com.leeacademy.board.repository.BoardRepository;
+import com.leeacademy.board.service.BoardService;
 import com.leeacademy.board.vo.BoardPaginationVo;
 import com.leeacademy.board.vo.BoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
+import org.springframework.data.web.SortDefault.SortDefaults;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,16 +25,23 @@ import java.util.Map;
 public class BoardController {
 
 	private BoardRepository boardRepository;
+	private BoardService boardService;
 
-	public BoardController(BoardRepository boardRepository) {
+	@Autowired
+	public BoardController(BoardRepository boardRepository, BoardService boardService) {
 		this.boardRepository = boardRepository;
+		this.boardService = boardService;
 	}
 
+	//list의 정렬 순서를 grp와 seq에 의해 처리되도록 변경
 	@RequestMapping("/")
 	public String list(Model model,
 					   @ModelAttribute BoardVO boardVO,
 					   @PageableDefault(page = 0, size = 10)
-					   @SortDefault(sort = "no",direction = Sort.Direction.DESC)
+						   @SortDefaults({
+								   @SortDefault(sort = "grp", direction = Sort.Direction.DESC),
+								   @SortDefault(sort = "seq", direction = Sort.Direction.ASC)
+						   })
 					   Pageable pageable
 					   ) {
 		Page<Board> data = boardRepository.findAll(boardVO.specification(), pageable);
@@ -50,7 +59,7 @@ public class BoardController {
 
 	@PostMapping("/write")
 	public String write(@ModelAttribute Board board) {
-		Board result = boardRepository.save(board);
+		Board result = boardService.write(board);
 		return "redirect:detail?no="+result.getNo();
 	}
 
@@ -95,6 +104,7 @@ public class BoardController {
 	}
 
 	//비밀번호 로직이 추가되었으므로 단순하게 번호를 받는 것이 아닌 FlashMap을 수신하는 코드로 변경
+	//(+추가) 답글이 달린 글은 삭제가 불가하도록 처리(삭제 처리하려면 decreaseSequence 호출)
 	@GetMapping("/delete")
 	public String delete(HttpServletRequest request){
 
@@ -103,9 +113,18 @@ public class BoardController {
 		if(map == null) throw new RuntimeException("권한 없음");
 		Long no = (Long)map.get("no");
 
+		long count = boardRepository.countByGrp(no);
+		if (count >1){
+			return "redirect:/delete_error";
+		}
 
 		boardRepository.deleteById(no);
 		return "redirect:/";
+	}
+
+	@GetMapping("/delete_error")
+	public String deleteError(){
+		return "deleteError";
 	}
 
 	//비밀번호 검새 매핑 추가

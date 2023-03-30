@@ -39,4 +39,17 @@ public class Board {
 	
 	@UpdateTimestamp
 	private Date editTime;
+	//계층형 게시판을 위한 상태값
+	@Column
+	private Long grp;
+
+	@Column
+	private long seq, dep;
 }
+
+
+
+
+
+
+
