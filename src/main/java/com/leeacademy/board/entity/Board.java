@@ -45,6 +45,11 @@ public class Board {
 
 	@Column
 	private long seq, dep;
+
+	//댓글 개수 확인용 컬럼
+	//조인을 해도 셀 수 있지만 성능상의 이점을 가지기 위해 별도의 컬럼을 설정
+	@Column
+	private long replyCount;
 }
 
 

@@ -1,6 +1,7 @@
--- insert into board(no,title,writer,content,password,readcount,write_time) values(1,'테스트게시글1','testuser1','테스트내용1','testuser',569,now());
--- insert into board(no,title,writer,content,password,readcount,write_time) values(2,'테스트게시글2','testuser2','테스트내용2','testuser',569,now());
--- insert into board(no,title,writer,content,password,readcount,write_time) values(3,'테스트게시글3','testuser3','테스트내용3','testuser',569,now());
+
+insert into board(no,title,writer,content,password,readcount,write_time,grp,seq,dep,reply_count) values(1,'테스트게시글1','testuser1','테스트내용1','testuser',569,now(),1,0,0,0);
+insert into board(no,title,writer,content,password,readcount,write_time,grp,seq,dep,reply_count) values(2,'테스트게시글2','testuser2','테스트내용2','testuser',569,now(),2,0,0,0);
+insert into board(no,title,writer,content,password,readcount,write_time,grp,seq,dep,reply_count) values(3,'테스트게시글3','testuser3','테스트내용3','testuser',569,now(),3,0,0,0);
 -- insert into board(no,title,writer,content,password,readcount,write_time) values(4,'테스트게시글4','testuser4','테스트내용4','testuser',569,now());
 -- insert into board(no,title,writer,content,password,readcount,write_time) values(5,'테스트게시글5','testuser5','테스트내용5','testuser',569,now());
 -- insert into board(no,title,writer,content,password,readcount,write_time) values(6,'테스트게시글6','testuser6','테스트내용6','testuser',569,now());

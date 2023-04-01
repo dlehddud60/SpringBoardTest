@@ -11,7 +11,7 @@
         </p>
     </div>
 
-    <form method="post">
+    <form method="post" class="board-form">
         <c:if test="${param.no != null}">
     <%--no가 있을 경우 답글이므로 전달을 위한 hidden field 생성--%>
             <input type="hidden" name="no" value="${param.no}">
@@ -36,8 +36,8 @@
         </div>
 
         <div class="row mt-4">
-            <div class="col-md-10 offset-md-1">
-                <textarea name="content" class="form-control" rows="15" placeholder="내용 작성" required></textarea>
+            <div class="col-md-10 offset-md-1"><pre>
+                <textarea name="content" class="form-control" rows="15" placeholder="내용 작성" required></textarea></pre>
             </div>
         </div>
 <%--        비밀번호 입력창 추가--%>
